@@ -1,0 +1,182 @@
+{
+    "schema_context": [
+        {
+            "table": "agents",
+            "columns": {
+                "id": "INT",
+                "name": "VARCHAR",
+                "is_active": "TINYINT"
+            },
+            "description": "Información de agentes de seguros. Ej: ¿Qué agentes están activos?"
+        },
+        {
+            "table": "leads",
+            "columns": {
+                "lead_id": "INT",
+                "contact_id": "INT",
+                "agents_id": "INT",
+                "firstname": "VARCHAR",
+                "lastname": "VARCHAR",
+                "emailaddress": "VARCHAR",
+                "state": "VARCHAR",
+                "legalstatus": "VARCHAR",
+                "createdate": "TIMESTAMP",
+                "sourcechannel": "VARCHAR",
+                "sourcecampaign": "VARCHAR",
+                "status": "VARCHAR",
+                "phone_number": "VARCHAR",
+                "is_inbound": "TINYINT"
+            },
+            "description": "Registros de leads. Ej: ¿Cuál canal ha generado más leads?"
+        },
+        {
+            "table": "policy",
+            "columns": {
+                "documentID": "TEXT",
+                "documentStatus": "TEXT",
+                "createDate": "TEXT",
+                "finalizedDate": "TEXT",
+                "signedDate": "TEXT",
+                "policyStatus": "TEXT",
+                "lastUpdateTimestamp": "TEXT",
+                "documentType": "TEXT",
+                "policyActiveYear": "TEXT",
+                "quotedPolicy": "VARCHAR",
+                "internalNotes": "VARCHAR",
+                "notesReplies": "JSON",
+                "agents_id": "INT"
+            },
+            "description": "Contiene datos de pólizas. Ej: ¿Cuántas pólizas fueron firmadas en 2023?"
+        },
+        {
+            "table": "financial_information",
+            "columns": {
+                "documentID": "TEXT",
+                "employer": "VARCHAR",
+                "annualIncome": "VARCHAR",
+                "bankName": "VARCHAR",
+                "routingNumber": "VARCHAR",
+                "accountNumber": "VARCHAR",
+                "cardNumber": "VARCHAR",
+                "cardBrand": "VARCHAR",
+                "cardExpirationMonth": "VARCHAR",
+                "cardExpirationYear": "VARCHAR",
+                "cvv": "VARCHAR",
+                "cardType": "VARCHAR",
+                "cardBillingAddress": "VARCHAR"
+            },
+            "description": "Información financiera. Ej: ¿Qué bancos son los más usados?"
+        },
+        {
+            "table": "contact",
+            "columns": {
+                "id": "INT",
+                "firstName": "VARCHAR",
+                "lastName": "VARCHAR",
+                "phoneNumber": "VARCHAR",
+                "emailAddress": "VARCHAR",
+                "mailingAddress": "VARCHAR",
+                "dateOfBirth": "VARCHAR",
+                "sexOrGender": "VARCHAR",
+                "married": "VARCHAR",
+                "migrationStatus": "VARCHAR",
+                "alienNumber": "VARCHAR",
+                "socialSecurityNumber": "VARCHAR",
+                "idOrDlNumber": "VARCHAR",
+                "notes": "VARCHAR",
+                "notesreplies": "JSON"
+            },
+            "description": "Datos personales del contacto. Ej: ¿Cuál es el rango de edad de los clientes?"
+        },
+        {
+            "table": "members",
+            "columns": {
+                "id": "INT",
+                "currentInsurance": "VARCHAR",
+                "role": "VARCHAR",
+                "applying": "VARCHAR",
+                "relationship": "VARCHAR",
+                "documentID": "INT",
+                "contactID": "INT"
+            },
+            "description": "Miembros asociados a una póliza. Ej: ¿Cuántos miembros en promedio hay por póliza?"
+        },
+        {
+            "table": "engagements",
+            "columns": {
+                "id": "INT",
+                "leads_id": "INT",
+                "action": "VARCHAR",
+                "description": "JSON",
+                "timestamp": "DATETIME",
+                "channel": "VARCHAR"
+            },
+            "description": "Interacciones registradas con leads. Ej: ¿Qué canal tiene más interacciones?"
+        },
+        {
+            "table": "calls",
+            "columns": {
+                "call_id": "INT",
+                "engagements_id": "INT",
+                "call_duration": "INT"
+            },
+            "description": "Llamadas realizadas. Ej: ¿Cuál fue la duración promedio de las llamadas?"
+        },
+        {
+            "table": "sms",
+            "columns": {
+                "sms_id": "INT",
+                "engagements_id": "INT",
+                "message_text": "VARCHAR",
+                "message_status": "VARCHAR"
+            },
+            "description": "Mensajes enviados vía SMS. Ej: ¿Cuál es el estado de los mensajes enviados?"
+        },
+        {
+            "table": "contact_changes",
+            "columns": {
+                "id": "INT",
+                "updatedColumn": "VARCHAR",
+                "previous": "VARCHAR",
+                "new": "VARCHAR",
+                "timestamp": "VARCHAR",
+                "contact_id": "INT"
+            },
+            "description": "Cambios históricos en la información de contacto. Ej: ¿Qué campo se actualiza más seguido?"
+        },
+        {
+            "table": "lead_changes",
+            "columns": {
+                "id": "INT",
+                "leads_id": "INT",
+                "engagements_id": "INT",
+                "previousvalue": "VARCHAR",
+                "newvalue": "VARCHAR",
+                "timestamp": "TIMESTAMP"
+            },
+            "description": "Historial de cambios en leads. Ej: ¿Qué cambios ha tenido un lead específico?"
+        },
+        {
+            "table": "policy_changes",
+            "columns": {
+                "id": "INT",
+                "updatedColumn": "VARCHAR",
+                "previous": "VARCHAR",
+                "new": "VARCHAR",
+                "timestamp": "VARCHAR",
+                "documentID": "TEXT"
+            },
+            "description": "Cambios en los datos de una póliza. Ej: ¿Qué campos han cambiado en las pólizas activas?"
+        },
+        {
+            "table": "signwell",
+            "columns": {
+                "documentID": "INT",
+                "signwellDocumentID": "VARCHAR",
+                "signatureLink": "VARCHAR",
+                "signwellDownload": "VARCHAR"
+            },
+            "description": "Información sobre firmas electrónicas. Ej: ¿Cuál es el enlace de firma de una póliza?"
+        }
+    ]
+}
