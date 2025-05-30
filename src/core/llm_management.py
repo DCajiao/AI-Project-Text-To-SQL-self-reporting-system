@@ -2,6 +2,7 @@ import torch
 import logging
 
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+from peft import PeftModel, PeftConfig
 
 import utils.definitions as definitions
 
@@ -26,21 +27,16 @@ def load_tokenizer():
 def load_model(preferred_torch_dtype="float16"):
     logger.info("Loading model...")
     try:
-        if preferred_torch_dtype == "float16":
-            model = AutoModelForCausalLM.from_pretrained(
-            definitions.TRAINED_MODEL_PATH,
-            torch_dtype=torch.float16,
+        # Load the adapter configuration to know the base model
+        peft_config = PeftConfig.from_pretrained(definitions.TRAINED_MODEL_PATH)
+        base_model = AutoModelForCausalLM.from_pretrained(
+            peft_config.base_model_name_or_path,
+            torch_dtype=torch.float16 if preferred_torch_dtype == "float16" else torch.float32,
             device_map="cpu"
         )
-        elif preferred_torch_dtype == "float32":
-            model = AutoModelForCausalLM.from_pretrained(
-                definitions.TRAINED_MODEL_PATH,
-                torch_dtype=torch.float32,
-                device_map="cpu"
-            )
-        else:
-            raise ValueError("Unsupported dtype. Use 'float16' or 'float32'.")
 
+        # Load the fine-tuned model with LoRA
+        model = PeftModel.from_pretrained(base_model, definitions.TRAINED_MODEL_PATH)
 
         logging.info("Model loaded successfully.")
         return model
