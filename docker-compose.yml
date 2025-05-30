@@ -1,7 +1,7 @@
 services:
   app:
     build:
-      context: ./app/
+      context: ./src/
       dockerfile: Dockerfile
     container_name: streamlit_app
     ports:
